@@ -1,10 +1,10 @@
-from script_functions.read_input_helper import read_functionality, read_versions
-from script_functions.menu_prints import print_menu, print_menu_functionalities, print_menu_versions
+import sys
+
+from script_functions.read_input_helper import read_functionality, read_versions, read_settings, user_input_integer
+from script_functions.menu_prints import print_menu, print_menu_functionalities, print_menu_versions, print_crawler_settings
 
 WEBSITE = "https://www.apkmirror.com/"
 
-class InputError(Exception):
-    pass
 
 
 def read_single_application():
@@ -34,23 +34,6 @@ def read_functionalities(input):
     print("You have chosen to crawl all categories")
 
 
-def user_input_integer(num_options):
-    user_input = None
-    options = [i for i in range(1, num_options + 1)]
-
-    while user_input not in options:
-        try:
-            user_input = int(input())
-            if user_input not in options:
-                raise InputError
-        except ValueError:
-            print("Please input an integer")
-        except InputError:
-            print("Please choose one of the available options")
-
-    return user_input
-
-
 def user_menu_options(option):
 
     if option == 1:
@@ -58,6 +41,14 @@ def user_menu_options(option):
 
     if option == 2:
         return input_num_versions()
+
+    if option == 3:
+        return input_settings()
+
+
+def input_settings():
+    print_crawler_settings()
+    spider_settings = read_settings()
 
 
 def input_num_versions():
@@ -84,7 +75,8 @@ def crawl_option_to_string(value):
 
 
 def main_menu():
-    crawl_settings = [str] * 3
+    #add defaults here, for nr of apps (undefined)
+    crawl_settings = ["ALL", None, sys.maxsize]
     user_input = None
     while not user_input == 4:
         print_menu()
@@ -97,5 +89,6 @@ def main_menu():
         elif user_input == 2:
             crawl_settings[2] = user_values[1]
 
+    print(crawl_settings)
     return crawl_settings
 

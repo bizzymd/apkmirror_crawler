@@ -20,7 +20,7 @@ def crawler_script(crawler_settings):
         # yield runner.crawl(ApkCategories, option='SCA', start_url='https://www.apkmirror.com/categories/no_category/', ver_req='1')
         yield runner.crawl(ApkCategories, option=crawler_settings[0], start_url=crawler_settings[1],
                            ver_req=crawler_settings[2])
-        yield runner.crawl(ApkDownloader, file_name='output.csv')
+        # yield runner.crawl(ApkDownloader, file_name='output.csv')
         reactor.stop()
 
     crawl()

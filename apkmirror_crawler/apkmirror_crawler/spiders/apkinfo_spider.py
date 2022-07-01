@@ -89,10 +89,6 @@ class ApkCategories(scrapy.Spider):
         else:
             versions_required = int(self.ver_req) - 1
 
-        print("\n\n\n\n\n\n\n\n\n\n\n\n")
-        print(versions_required)
-        print("\n\n\n\n\n\n\n\n\n\n\n\n")
-
         if more_uploads:
             more_uploads = ''.join(WEBSITE + more_uploads.extract_first())
             request = Request(more_uploads, callback=self.parse_more_app,

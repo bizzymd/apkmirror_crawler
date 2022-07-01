@@ -9,11 +9,7 @@ from script_functions.read_input import main_menu
 from script_functions.signature import signature
 
 
-def read_input():
-    main_menu()
-
-
-def main():
+def crawler_script(crawler_settings):
     configure_logging()
 
     ApkCategories.custom_settings = {"FEEDS": {"output.csv": {"format": "csv", "overwrite": True}}}
@@ -22,8 +18,8 @@ def main():
     @defer.inlineCallbacks
     def crawl():
         # yield runner.crawl(ApkCategories, option='SCA', start_url='https://www.apkmirror.com/categories/no_category/', ver_req='1')
-        yield runner.crawl(ApkCategories, option='SAPP', start_url='https://www.apkmirror.com/apk/samsung-electronics-co-ltd/a-plugger/',
-                           ver_req='undefined')
+        yield runner.crawl(ApkCategories, option=crawler_settings[0], start_url=crawler_settings[1],
+                           ver_req=crawler_settings[2])
         yield runner.crawl(ApkDownloader, file_name='output.csv')
         reactor.stop()
 
@@ -33,4 +29,4 @@ def main():
 
 if __name__ == "__main__":
     signature()
-    read_input()
+    crawler_script(main_menu())

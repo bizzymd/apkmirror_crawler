@@ -5,7 +5,7 @@ from twisted.internet import reactor, defer
 
 from apkmirror_crawler.spiders.apkdownloader_spider import ApkDownloader
 from apkmirror_crawler.spiders.apkinfo_spider import ApkCategories
-from script_functions.read_input import main_menu
+from script_functions.options import main_menu
 from script_functions.signature import signature
 
 

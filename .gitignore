@@ -1,5 +1,1 @@
 # demo folderdemo*/# virtual env foldervenv/# PyCharm related files.idea/
-
-#ignore outputs
-*/files
-*/output.csv

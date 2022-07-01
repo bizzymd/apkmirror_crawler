@@ -29,4 +29,4 @@ def crawler_script(crawler_settings):
 
 if __name__ == "__main__":
     signature()
-    crawler_script(main_menu())
+    print(main_menu())

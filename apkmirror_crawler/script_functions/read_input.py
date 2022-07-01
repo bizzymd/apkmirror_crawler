@@ -48,7 +48,7 @@ def user_menu_options(option):
 
 def input_settings():
     print_crawler_settings()
-    spider_settings = read_settings()
+    return read_settings()
 
 
 def input_num_versions():
@@ -76,7 +76,7 @@ def crawl_option_to_string(value):
 
 def main_menu():
     #add defaults here, for nr of apps (undefined)
-    crawl_settings = ["ALL", None, sys.maxsize]
+    crawl_settings = ["ALL", None, sys.maxsize, "APK&Download", "LogsOn"]
     user_input = None
     while not user_input == 4:
         print_menu()
@@ -88,7 +88,10 @@ def main_menu():
             crawl_settings[1] = user_values[1]
         elif user_input == 2:
             crawl_settings[2] = user_values[1]
+        elif user_input == 3:
+            crawl_settings[user_values[0]] = user_values[1]
+        print(crawl_settings)
 
-    print(crawl_settings)
+    # print(crawl_settings)
     return crawl_settings
 

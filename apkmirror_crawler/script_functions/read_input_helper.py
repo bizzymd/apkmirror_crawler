@@ -1,6 +1,6 @@
 from typing import NewType
 
-from script_functions.menu_prints import print_wrong_functionality, print_spider_settings
+from script_functions.menu_prints import print_wrong_functionality, print_spider_settings, print_log_settings
 
 
 class InputError(Exception):
@@ -66,6 +66,11 @@ def read_spider_settings(option):
         return "Download"
     return "APK&Download"
 
+def read_log_settings(option):
+    if option == 1:
+        return "LogsOn"
+    return "LogsOff"
+
 
 def read_settings():
     while True:
@@ -75,8 +80,10 @@ def read_settings():
         if user_input == 1:
             print_spider_settings()
             user_input = user_input_integer(3)
-            return read_spider_settings(user_input)
+            return 3, read_spider_settings(user_input)
 
         # Log settings
 
-        
+        print_log_settings()
+        user_input = user_input_integer(2)
+        return 4, read_log_settings(user_input)

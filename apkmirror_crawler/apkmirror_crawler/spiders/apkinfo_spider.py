@@ -1,4 +1,5 @@
 import scrapy
+import sys
 from scrapy import Request
 from apkmirror_crawler.items import ApkMirrorItem
 
@@ -50,6 +51,11 @@ class ApkCategories(scrapy.Spider):
         # B-Z+#
         # category_letters = response.xpath(
         #     "//div[@class='listWidget']/div[@class='appRow center'][2]/div[@class='pagination']/div/a/@href")
+
+        # if not category_letters:
+        #     category_letters = response.xpath("//div[@class='listWidget']/div[@class='appRow center'][1]/div["
+        #                                       "@class='pagination']/div/a/@href")
+
         # for letter in category_letters:
         #     letter_link = ''.join(WEBSITE + letter.extract())
         #     print(letter_link)
@@ -78,10 +84,10 @@ class ApkCategories(scrapy.Spider):
         more_uploads = response.xpath("//div[@id='primary']//div[@class='table-row']/div/a/@href")
 
         # User input for the retrieval of a number of versions for each app, in case of no input, retrieve all versions
-        try:
+        if self.ver_req == 'undefined':
+            versions_required = sys.maxsize
+        else:
             versions_required = int(self.ver_req) - 1
-        except AttributeError:
-            versions_required = int
 
         print("\n\n\n\n\n\n\n\n\n\n\n\n")
         print(versions_required)
@@ -101,21 +107,18 @@ class ApkCategories(scrapy.Spider):
         versions = response.xpath("//div[@class='appRow']//div[2]/div/h5/a/@href")
 
         version_num = 0
+        versions_required = response.meta.get('versions_req')
 
         for version in versions:
             version = ''.join(WEBSITE + version.extract())
             request = Request(version, callback=self.parse_version)
-            print("\n\n\n\n\n\n\n\n\n\n\n\n")
-            print(version_num, response.meta.get('versions_req'))
-            print("\n\n\n\n\n\n\n\n\n\n\n\n")
             yield request
-            if version_num == response.meta.get('versions_req'):
+            if version_num == versions_required:
                 return
             version_num = version_num + 1
 
         # Number of apk versions left to crawl, relevant if specified
-        versions_left = response.meta.get('versions_req') - version_num
-        print(versions_left)
+        versions_left = versions_required - version_num
 
         next_page = response.xpath("//div[@class='pagination']/div[@class='wp-pagenavi']/a["
                                    "@class='nextpostslink']/@href")

@@ -5,12 +5,12 @@ from twisted.internet import reactor, defer
 
 from apkmirror_crawler.spiders.apkdownloader_spider import ApkDownloader
 from apkmirror_crawler.spiders.apkinfo_spider import ApkCategories
-from script_functions.options import input_functionalities
+from script_functions.options import main_menu
 from script_functions.signature import signature
 
 
 def read_input():
-    input_functionalities()
+    main_menu()
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
     def crawl():
         # yield runner.crawl(ApkCategories, option='SCA', start_url='https://www.apkmirror.com/categories/no_category/', ver_req='1')
         yield runner.crawl(ApkCategories, option='SAPP', start_url='https://www.apkmirror.com/apk/samsung-electronics-co-ltd/a-plugger/',
-                           ver_req='1')
+                           ver_req='undefined')
         yield runner.crawl(ApkDownloader, file_name='output.csv')
         reactor.stop()
 

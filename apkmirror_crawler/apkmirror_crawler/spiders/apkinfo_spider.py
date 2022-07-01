@@ -49,18 +49,18 @@ class ApkCategories(scrapy.Spider):
         yield request
 
         # B-Z+#
-        # category_letters = response.xpath(
-        #     "//div[@class='listWidget']/div[@class='appRow center'][2]/div[@class='pagination']/div/a/@href")
+        category_letters = response.xpath(
+            "//div[@class='listWidget']/div[@class='appRow center'][2]/div[@class='pagination']/div/a/@href")
 
-        # if not category_letters:
-        #     category_letters = response.xpath("//div[@class='listWidget']/div[@class='appRow center'][1]/div["
-        #                                       "@class='pagination']/div/a/@href")
+        if not category_letters:
+            category_letters = response.xpath("//div[@class='listWidget']/div[@class='appRow center'][1]/div["
+                                              "@class='pagination']/div/a/@href")
 
-        # for letter in category_letters:
-        #     letter_link = ''.join(WEBSITE + letter.extract())
-        #     print(letter_link)
-        #     request = Request(letter_link, callback=self.parse_category)
-        #     yield request
+        for letter in category_letters:
+            letter_link = ''.join(WEBSITE + letter.extract())
+            request = Request(letter_link, callback=self.parse_category)
+            yield request
+
 
     def parse_category(self, response):
         apps = response.xpath("//div[@class='listWidget'][position()=1]//div[@class='appRow']/div/div[position("

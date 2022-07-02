@@ -66,6 +66,7 @@ def read_spider_settings(option):
         return "Download"
     return "APK&Download"
 
+
 def read_log_settings(option):
     if option == 1:
         return "LogsOn"
@@ -83,7 +84,6 @@ def read_settings():
             return 3, read_spider_settings(user_input)
 
         # Log settings
-
         print_log_settings()
         user_input = user_input_integer(2)
         return 4, read_log_settings(user_input)

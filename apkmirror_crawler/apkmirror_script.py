@@ -2,7 +2,6 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
 from scrapy.utils.project import get_project_settings
 from twisted.internet import reactor, defer
-
 from apkmirror_crawler.spiders.apkdownloader_spider import ApkDownloader
 from apkmirror_crawler.spiders.apkinfo_spider import ApkCategories
 from script_functions.read_input import main_menu

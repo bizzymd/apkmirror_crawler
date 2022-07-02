@@ -1,7 +1,6 @@
 
 
 def print_wrong_functionality(mode):
-
     if mode == 'apk/':
         print("Please follow the format https://www.apkmirror.com/apk/developer/apk/")
     else:

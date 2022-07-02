@@ -13,14 +13,16 @@ def crawler_script(crawler_settings):
     configure_logging()
 
     ApkCategories.custom_settings = {"FEEDS": {"output.csv": {"format": "csv", "overwrite": True}}}
-    runner = CrawlerRunner(get_project_settings())
+    if crawler_settings[4] == "LogsOn":
+        runner = CrawlerRunner(get_project_settings())
 
     @defer.inlineCallbacks
     def crawl():
-        # yield runner.crawl(ApkCategories, option='SCA', start_url='https://www.apkmirror.com/categories/no_category/', ver_req='1')
-        yield runner.crawl(ApkCategories, option=crawler_settings[0], start_url=crawler_settings[1],
-                           ver_req=crawler_settings[2])
-        # yield runner.crawl(ApkDownloader, file_name='output.csv')
+        if crawler_settings[3] == ('APK' or "APK&Download"):
+            yield runner.crawl(ApkCategories, option=crawler_settings[0], start_url=crawler_settings[1],
+                               ver_req=crawler_settings[2])
+        if crawler_settings[3] == ('Download' or "APK&Download"):
+            yield runner.crawl(ApkDownloader, file_name='output.csv')
         reactor.stop()
 
     crawl()
@@ -29,4 +31,4 @@ def crawler_script(crawler_settings):
 
 if __name__ == "__main__":
     signature()
-    print(main_menu())
+    crawler_script(main_menu())

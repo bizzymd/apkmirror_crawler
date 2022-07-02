@@ -2,22 +2,18 @@ import sys
 
 from script_functions.read_input_helper import read_functionality, read_versions, read_settings, user_input_integer
 from script_functions.menu_prints import print_menu, print_menu_functionalities, print_menu_versions, print_crawler_settings
+from script_functions.menu_prints import print_single_functionality
 
 WEBSITE = "https://www.apkmirror.com/"
 
 
-
 def read_single_application():
-    print("You have chosen to crawl a single application")
-    print("Please input an application URL, in the following format: https://www.apkmirror.com/apk/developer/apk/")
-    print("Type 'Exit' to return to the main menu")
+    print_single_functionality('application')
     return read_functionality('apk/')
 
 
 def read_category_link():
-    print("You have chosen to crawl a single category")
-    print("Please input an application URL, in the following format: https://www.apkmirror.com/categories/category")
-    print("Type 'Exit' to return to the main menu")
+    print_single_functionality('category')
     return read_functionality('categories')
 
 
@@ -61,6 +57,11 @@ def input_functionalities():
     print_menu_functionalities()
     user_input = user_input_integer(3)
     crawl_link = read_functionalities(user_input)
+
+    # If user chose option 1 or 2, but did not input a link, revert to default option(crawl everything)
+    if crawl_link is None:
+        user_input = 3
+
     return user_input, crawl_link
 
 

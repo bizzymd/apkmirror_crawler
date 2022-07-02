@@ -51,19 +51,19 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
-    'scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware': 610,
-}
-ZYTE_SMARTPROXY_ENABLED = True
-# ZYTE_SMARTPROXY_APIKEY = 'f72800b6475b4c4fb4d952980e70020b'
-ZYTE_SMARTPROXY_APIKEY = '9903b9bdd5a94f06ac47ca1f0d85f4a9'
-
-CONCURRENT_REQUESTS = 32
-CONCURRENT_REQUESTS_PER_DOMAIN = 32
-AUTOTHROTTLE_ENABLED = False
-DOWNLOAD_TIMEOUT = 600
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+#     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+#     'scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware': 610,
+# }
+# ZYTE_SMARTPROXY_ENABLED = True
+# # ZYTE_SMARTPROXY_APIKEY = 'f72800b6475b4c4fb4d952980e70020b'
+# ZYTE_SMARTPROXY_APIKEY = '9903b9bdd5a94f06ac47ca1f0d85f4a9'
+#
+# CONCURRENT_REQUESTS = 32
+# CONCURRENT_REQUESTS_PER_DOMAIN = 32
+# AUTOTHROTTLE_ENABLED = False
+# DOWNLOAD_TIMEOUT = 600
 
 
 

@@ -11,9 +11,8 @@ from script_functions.signature import signature
 def crawler_script(crawler_settings):
     configure_logging()
 
-    ApkCategories.custom_settings = {"FEEDS": {"output.csv": {"format": "csv", "overwrite": True}}}
-    if crawler_settings[4] == "LogsOn":
-        runner = CrawlerRunner(get_project_settings())
+    ApkCategories.custom_settings = {"FEEDS": {"output.csv": {"format": "csv", "overwrite": crawler_settings[4]}}}
+    runner = CrawlerRunner(get_project_settings())
 
     @defer.inlineCallbacks
     def crawl():

@@ -77,7 +77,7 @@ def crawl_option_to_string(value):
 
 def main_menu():
     #add defaults here, for nr of apps (undefined)
-    crawl_settings = ["ALL", None, sys.maxsize, "APK&Download", "LogsOn"]
+    crawl_settings = ["ALL", None, sys.maxsize, "APK&Download", True]
     user_input = None
     while not user_input == 4:
         print_menu()

@@ -69,8 +69,8 @@ def read_spider_settings(option):
 
 def read_log_settings(option):
     if option == 1:
-        return "LogsOn"
-    return "LogsOff"
+        return True
+    return False
 
 
 def read_settings():

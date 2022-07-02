@@ -34,15 +34,15 @@ def print_spider_settings():
 
 
 def print_log_settings():
-    print("In this option you can choose if you want the logs On or Off")
-    print("(1) Logs On (default)")
-    print("(2) Logs off")
+    print("In this option you can choose if you want to overwrite or append the crawled applications to the output file")
+    print("(1) Overwrite (default)")
+    print("(2) Append")
 
 
 def print_crawler_settings():
     print("Settings:")
     print("(1) Spider settings (on/off)")
-    print("(2) Logs (on/off)")
+    print("(2) Overwrite output file (on/off)")
 
 
 def print_menu_versions():

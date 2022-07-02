@@ -16,7 +16,10 @@ import scrapy
 from scrapy.pipelines.files import FilesPipeline
 from apkmirror_crawler.items import ApkMirrorDownloader
 
-
+# Pipeline class, used for naming of the downloaded files, the file name is retrieved during the parsing part of the
+# APK mirror website, which is then stored inside the '.csv' file. In the downloading phase, the "file_name" value is
+# retrieved to rename the downloaded file from a hash
+# '1b6c0a648f8eceb9b8e8d71e5ff185ace7c479fa' to 'com.example.app123_1.0-1_minAPI10(nodpi).apk'
 class ApkmirrorCrawlerPipeline(FilesPipeline):
 
     def file_path(self, request, response=None, info=None, *, item=None):

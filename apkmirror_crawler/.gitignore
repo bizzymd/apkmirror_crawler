@@ -1,0 +1,4 @@
+# virtual env foldervenv/# PyCharm related files.idea/*/.idea/# DS_Store file.DS_Store*/.DS_Store.DS_Store
+
+#output file
+output.csv

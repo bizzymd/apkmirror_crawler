@@ -206,7 +206,7 @@ class ApkCategories(scrapy.Spider):
             item['package'] = ''.join(details.xpath("./div[1]/div[2]/span/text()").extract()).replace('Package: ',
                                                                                                       '').strip()
         # Scrape Details
-        item['size'] = ''.join(details.xpath("./div[2]/div[2]/text()").extract()).strip()
+        item['size'] = ''.join(details.xpath("./div[2]/div[2]/text()").extract()).strip().split("M")[0]
         item['os'] = ''.join(details.xpath("./div[3]/div[2]/div/text()").extract()).strip()
         item['dpi'] = ''.join(details.xpath("./div[4]/div[2]//text()").extract())
         date = ''.join(details.xpath("./div[6]/div[2]//text()").extract()).replace('Uploaded ', '')

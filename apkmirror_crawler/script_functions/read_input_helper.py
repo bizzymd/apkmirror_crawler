@@ -1,5 +1,6 @@
 from script_functions.menu_prints import print_wrong_functionality, print_spider_settings, print_log_settings
 
+
 # Exception used in case the user inputted an integer, but not one of the available ones
 class InputError(Exception):
     pass

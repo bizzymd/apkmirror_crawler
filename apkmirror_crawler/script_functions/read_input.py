@@ -42,8 +42,8 @@ def user_menu_options(option):
     if option == 2:
         return input_num_versions()
 
-
-    return input_settings()
+    if option == 3:
+        return input_settings()
 
 
 # Check input for option 3(which spider to run or overwrite output.csv file true/false)
@@ -77,10 +77,9 @@ def main_menu():
     signature()
     print_default_settings()
     # Initialise the crawl settings with the default options
+
     crawl_settings = ["ALL", None, sys.maxsize, "APK&Download", True]
     user_input = None
-
-    # Loop to check for users input
     while not user_input == 4:
         print_menu()
         user_input = user_input_integer(4)

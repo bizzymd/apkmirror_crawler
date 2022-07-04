@@ -2,7 +2,7 @@
 
 def print_wrong_functionality(mode):
     if mode == 'apk/':
-        print("Please follow the format https://www.apkmirror.com/apk/developer/apk/")
+        print("Please follow the format https://www.apkmirror.com/apk/developer/application/")
     else:
         print("Please follow the format https://www.apkmirror.com/categories/category/")
 
@@ -16,10 +16,6 @@ def print_menu_functionalities():
     print("(3) Crawl all categories (DEFAULT)")
 
 
-#TODO 3 - for parse only/ download only, both - DONE
-# 4 - custom settings for file name, overwrite file or not.
-# 5 - Logs on/off? - DONE
-# 6 - Calculate total size
 def print_menu():
     print("(1) Functionalities")
     print("(2) Number of applications to download")
@@ -52,9 +48,14 @@ def print_menu_versions():
 
 
 def print_single_functionality(mode):
-    print("You have chosen to crawl a single" + mode)
+    print("You have chosen to crawl a single " + mode)
     if mode == "application":
-        print("Please input an application URL, in the following format: https://www.apkmirror.com/apk/developer/apk/")
+        print("Please input an application URL, in the following format: https://www.apkmirror.com/apk/developer/application/")
     else:
         print("Please input an application URL, in the following format: https://www.apkmirror.com/categories/category")
     print("Type 'Exit' to return to the main menu")
+
+
+def print_default_settings():
+    print("The scraper has the following (default) settings: Scrape all categories, scrape every version of an")
+    print("application, parse the application information and download them and overwrite the output.csv file\n")

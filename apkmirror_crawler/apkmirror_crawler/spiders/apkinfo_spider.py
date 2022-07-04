@@ -11,7 +11,7 @@ class ApkCategories(scrapy.Spider):
     # Spider name, mostly if ran from a terminal, i.e., scrapy crawl 'name'
     name = 'apk_mirror'
 
-    # The spider starts in this function, based on the chosen option, it will either crawl a single application,
+    # The spider starts in this method, based on the chosen option, it will either crawl a single application,
     # crawl a single category or crawl everything
     def start_requests(self):
         # Request to parse a single application
@@ -80,7 +80,7 @@ class ApkCategories(scrapy.Spider):
             request = Request(next_page, callback=self.parse_category)
             yield request
 
-    # Mostly a helper function used to send requests to parse applications. This function takes care of the two scenarios
+    # Mostly a helper method used to send requests to parse applications. This method takes care of the two scenarios
     # 1. The application has 10 or fewer versions 2. The application has more than 10 versions
     def parse_app_helper(self, response):
         more_uploads = response.xpath("//div[@id='primary']//div[@class='table-row']/div/a/@href")
@@ -102,7 +102,7 @@ class ApkCategories(scrapy.Spider):
 
         yield request
 
-    # Function to crawl the "See more uploads..." pages
+    # Method to crawl the "See more uploads..." pages
     def parse_more_app(self, response):
         versions = response.xpath("//div[@class='appRow']//div[2]/div/h5/a/@href")
 
@@ -173,7 +173,7 @@ class ApkCategories(scrapy.Spider):
             request = Request(response.request.url, callback=self.parse_info, dont_filter=True)
             yield request
 
-    # Main function used to scrape all the details from an application version
+    # Main method used to scrape all the details from an application version
     def parse_info(self, response):
         item = ApkMirrorItem()
 

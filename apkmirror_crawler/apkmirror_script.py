@@ -11,16 +11,21 @@ from script_functions.signature import signature
 def crawler_script(crawler_settings):
     configure_logging()
 
+    # Custom setting for file name, format and overwrite true/false.
     ApkCategories.custom_settings = {"FEEDS": {"output.csv": {"format": "csv", "overwrite": crawler_settings[4]}}}
     runner = CrawlerRunner(get_project_settings())
 
     @defer.inlineCallbacks
     def crawl():
-        if crawler_settings[3] == 'APK' or crawler_settings[3] == "APK&Download":
+        # Request to run apkinfo_spider.py
+        if crawler_settings[3] == ('APK' or "APK&Download"):
             yield runner.crawl(ApkCategories, option=crawler_settings[0], start_url=crawler_settings[1],
                                ver_req=crawler_settings[2])
-        if crawler_settings[3] == 'Download' or "APK&Download" or crawler_settings[3] == 'APK&Download':
+        # Request to run apkdownloader_spider.py
+        if crawler_settings[3] == ('Download' or "APK&Download"):
             yield runner.crawl(ApkDownloader, file_name='output.csv')
+
+        # Scrapy works on the Twisted framework, it is necessary to stop the reactor
         reactor.stop()
 
     crawl()
@@ -28,5 +33,5 @@ def crawler_script(crawler_settings):
 
 
 if __name__ == "__main__":
-    signature()
+
     crawler_script(main_menu())

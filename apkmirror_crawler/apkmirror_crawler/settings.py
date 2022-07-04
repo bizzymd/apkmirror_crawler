@@ -27,6 +27,8 @@ FILES_STORE = './'
 MEDIA_ALLOW_REDIRECTS = True
 DOWNLOAD_WARNSIZE = 0
 
+# If you would like to use the Zyte Proxy Manager for faster crawling speed comment everything from lines 33-50 and
+# uncomment lines 53-67
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 CONCURRENT_REQUESTS = 1
@@ -56,9 +58,9 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 #     'scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware': 610,
 # }
 # ZYTE_SMARTPROXY_ENABLED = True
-# # ZYTE_SMARTPROXY_APIKEY = 'f72800b6475b4c4fb4d952980e70020b'
-# ZYTE_SMARTPROXY_APIKEY = '9903b9bdd5a94f06ac47ca1f0d85f4a9'
+# ZYTE_SMARTPROXY_APIKEY = 'API HERE'
 #
+# For faster crawling speed with Zyte, uncomment the lines below
 # CONCURRENT_REQUESTS = 32
 # CONCURRENT_REQUESTS_PER_DOMAIN = 32
 # AUTOTHROTTLE_ENABLED = False

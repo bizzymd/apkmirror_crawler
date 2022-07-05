@@ -23,6 +23,7 @@ class ApkMirrorItem(scrapy.Item):
     name = scrapy.Field()
     date = scrapy.Field()
     app_link = scrapy.Field()
+    categories = scrapy.Field()
 
 
 class ApkMirrorDownloader(scrapy.Item):

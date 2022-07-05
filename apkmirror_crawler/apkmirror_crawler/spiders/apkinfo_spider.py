@@ -182,6 +182,13 @@ class ApkCategories(scrapy.Spider):
         details = response.xpath("//div[@class='apk-detail-table wrapText']")
         signatures = response.xpath("//div[@class='modal-body']")
         download_link = ''.join(WEBSITE + response.xpath("//div[@class='center f-sm-50']/div/a/@href").extract_first())
+        
+        categories = response.xpath("//div[@id='content']/article/div/div[@class='tab-buttons d-flex f-nowrap']/div[1]/a/text()").extract()
+
+        # check if categories is empty
+        if not categories: categories = "No category"
+
+        item['categories'] = categories
 
         item['app_name'] = response.xpath(
             "//h1[@class='marginZero wrapText app-title fontBlack noHover']/text()").extract()

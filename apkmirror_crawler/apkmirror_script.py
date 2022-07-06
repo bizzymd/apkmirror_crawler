@@ -13,6 +13,7 @@ def crawler_script(crawler_settings):
 
     # Custom setting for file name, format and overwrite true/false.
     ApkCategories.custom_settings = {"FEEDS": {"output.csv": {"format": "csv", "overwrite": crawler_settings[4]}}}
+    ApkDownloader.custom_settings = {"FEEDS": {"output_downloads2.csv": {"format": "csv", "overwrite": True}}}
     runner = CrawlerRunner(get_project_settings())
 
     @defer.inlineCallbacks

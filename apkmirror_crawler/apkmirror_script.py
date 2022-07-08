@@ -19,11 +19,11 @@ def crawler_script(crawler_settings):
     @defer.inlineCallbacks
     def crawl():
         # Request to run apkinfo_spider.py
-                if crawler_settings[3] == 'APK' or crawler_settings[3] =="APK&Download":
+        if crawler_settings[3] == 'APK' or crawler_settings[3] == "APK&Download":
             yield runner.crawl(ApkCategories, option=crawler_settings[0], start_url=crawler_settings[1],
                                ver_req=crawler_settings[2])
         # Request to run apkdownloader_spider.py
-        if crawler_settings[3] == 'Download' or crawler_settings[3] =="APK&Download":
+        if crawler_settings[3] == 'Download' or crawler_settings[3] == "APK&Download":
             yield runner.crawl(ApkDownloader, file_name='output.csv')
 
         # Scrapy works on the Twisted framework, it is necessary to stop the reactor
@@ -34,5 +34,4 @@ def crawler_script(crawler_settings):
 
 
 if __name__ == "__main__":
-
     crawler_script(main_menu())

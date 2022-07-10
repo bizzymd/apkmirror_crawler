@@ -30,38 +30,38 @@ DOWNLOAD_WARNSIZE = 0
 # If you would like to use the Zyte Proxy Manager for faster crawling speed comment everything from lines 33-50 and
 # uncomment lines 53-67
 
-# # Configure maximum concurrent requests performed by Scrapy (default: 16)
-# CONCURRENT_REQUESTS = 1
-# # Configure a delay for requests for the same website (default: 0)
-# # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
-# DOWNLOAD_DELAY = 10
-# # The download delay setting will honor only one of:
-# CONCURRENT_REQUESTS_PER_DOMAIN = 1
-#
-# # Enable and configure the AutoThrottle extension (disabled by default)
-# # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-# AUTOTHROTTLE_ENABLED = True
-# # The initial download delay
-# AUTOTHROTTLE_START_DELAY = 5
-# # The maximum download delay to be set in case of high latencies
-# AUTOTHROTTLE_MAX_DELAY = 60
-# # The average number of requests Scrapy should be sending in parallel to
-# # each remote server
-# AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+# Configure maximum concurrent requests performed by Scrapy (default: 16)
+CONCURRENT_REQUESTS = 1
+# Configure a delay for requests for the same website (default: 0)
+# See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
+DOWNLOAD_DELAY = 10
+# The download delay setting will honor only one of:
+CONCURRENT_REQUESTS_PER_DOMAIN = 1
+
+# Enable and configure the AutoThrottle extension (disabled by default)
+# See https://docs.scrapy.org/en/latest/topics/autothrottle.html
+AUTOTHROTTLE_ENABLED = True
+# The initial download delay
+AUTOTHROTTLE_START_DELAY = 5
+# The maximum download delay to be set in case of high latencies
+AUTOTHROTTLE_MAX_DELAY = 60
+# The average number of requests Scrapy should be sending in parallel to
+# each remote server
+AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
-    'scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware': 610,
-}
-ZYTE_SMARTPROXY_ENABLED = True
-ZYTE_SMARTPROXY_APIKEY = 'c399f7f7b0854d9aa7554aa76e3aac53'
-
-# For faster crawling speed with Zyte, uncomment the lines below
-CONCURRENT_REQUESTS = 32
-CONCURRENT_REQUESTS_PER_DOMAIN = 32
-AUTOTHROTTLE_ENABLED = False
-DOWNLOAD_TIMEOUT = 600
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+#     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+#     'scrapy_zyte_smartproxy.ZyteSmartProxyMiddleware': 610,
+# }
+# ZYTE_SMARTPROXY_ENABLED = True
+# ZYTE_SMARTPROXY_APIKEY = 'c399f7f7b0854d9aa7554aa76e3aac53'
+#
+# # For faster crawling speed with Zyte, uncomment the lines below
+# CONCURRENT_REQUESTS = 32
+# CONCURRENT_REQUESTS_PER_DOMAIN = 32
+# AUTOTHROTTLE_ENABLED = False
+# DOWNLOAD_TIMEOUT = 600

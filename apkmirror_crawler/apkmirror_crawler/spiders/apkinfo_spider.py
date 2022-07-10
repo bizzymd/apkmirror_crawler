@@ -6,10 +6,12 @@ from apkmirror_crawler.items import ApkMirrorItem
 WEBSITE = "https://www.apkmirror.com"
 
 
+
 # Spider class used to crawl the website
 class ApkCategories(scrapy.Spider):
     # Spider name, mostly if ran from a terminal, i.e., scrapy crawl 'name'
     name = 'apk_mirror'
+    versions_required = sys.maxsize
 
     # The spider starts in this method, based on the chosen option, it will either crawl a single application,
     # crawl a single category or crawl everything
@@ -83,22 +85,19 @@ class ApkCategories(scrapy.Spider):
     # Mostly a helper method used to send requests to parse applications. This method takes care of the two scenarios
     # 1. The application has 10 or fewer versions 2. The application has more than 10 versions
     def parse_app_helper(self, response):
+        global versions_required
         more_uploads = response.xpath("//div[@id='primary']//div[@class='table-row']/div/a/@href")
 
         # User input for the retrieval of a number of versions for each app, in case of no input, retrieve all versions
-        if self.ver_req == 'undefined':
-            versions_required = sys.maxsize
-        else:
-            versions_required = int(self.ver_req) - 1
+        if not self.ver_req == 'undefined':
+            versions_required = int(self.ver_req)
 
         # Request to parse the application based on the second scenario
         if more_uploads:
             more_uploads = ''.join(WEBSITE + more_uploads.extract_first())
-            request = Request(more_uploads, callback=self.parse_more_app,
-                              meta={'versions_req': versions_required})
+            request = Request(more_uploads, callback=self.parse_more_app,)
         else:
-            request = Request(response.url, callback=self.parse_app,
-                              dont_filter=True, meta={'versions_req': versions_required}, )
+            request = Request(response.url, callback=self.parse_app, dont_filter=True)
 
         yield request
 
@@ -106,28 +105,22 @@ class ApkCategories(scrapy.Spider):
     def parse_more_app(self, response):
         versions = response.xpath("//div[@class='appRow']//div[2]/div/h5/a/@href")
 
-        version_num = 0
-        versions_required = response.meta.get('versions_req')
-
         # Loop through the application versions and request to parse
         for version in versions:
             version = ''.join(WEBSITE + version.extract())
             request = Request(version, callback=self.parse_version)
             yield request
-            if version_num == versions_required:
+            if versions_required == 0:
                 return
-            version_num = version_num + 1
-
-        # Number of app versions left to crawl, relevant if input was specified
-        versions_left = versions_required - version_num
 
         # Retrieve the next page of application versions, using the 'Next' button(if available)
         next_page = response.xpath("//div[@class='pagination']/div[@class='wp-pagenavi']/a["
                                    "@class='nextpostslink']/@href")
+
         # Request to parse the next page of application versions, note the recursion
         if next_page:
             next_page = ''.join(WEBSITE + next_page.extract_first())
-            request = Request(next_page, callback=self.parse_more_app, meta={'versions_req': versions_left})
+            request = Request(next_page, callback=self.parse_more_app)
             yield request
 
     # Function to crawl the applications in the scenario only 10 or fewer versions are present
@@ -153,6 +146,9 @@ class ApkCategories(scrapy.Spider):
 
     # Function to parse the versions page, based on some criteria, required if different uploads of a version exist
     def parse_version(self, response):
+        global versions_required
+        if versions_required == 0:
+            return
         variants = response.xpath("//div[@class='listWidget']//div[@class='table-row headerFont']")
 
         if variants.extract():
@@ -164,12 +160,14 @@ class ApkCategories(scrapy.Spider):
                 # Check if the download is an APK and split APK, the latter requires an external application
                 apk_badge = variant.xpath("./div/span[@class='apkm-badge']")
                 if architecture and apk_badge:
+                    versions_required = versions_required - 1
                     variant_link = ''.join(WEBSITE + variant.xpath("./div/a/@href").extract_first())
                     request = Request(variant_link, callback=self.parse_info)
                     yield request
                     break
         # Request to parse the version page in the scenario when only one APK download is present
         else:
+            versions_required = versions_required - 1
             request = Request(response.request.url, callback=self.parse_info, dont_filter=True)
             yield request
 

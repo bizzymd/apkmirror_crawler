@@ -13,14 +13,13 @@ APKMirror Crawler is a project developed for the Short Project Programming cours
 
 ## Installation
 
-Git clone the repository and follow the installation commands
+Git clone the repository, switch current directory to the cloned repository and follow the installation commands
 
-```bash
-cd apkmirror_crawler/
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
-cd apkmirror_crawler/
+```bash 
+python3 -m venv venv # Create a Python virtual environment
+source venv/bin/activate # Access the Python virtual env
+pip3 install -r requirements.txt # Install the requirements 
+cd apkmirror_crawler/ # Switch current directory to the scraper repo
 ```
 
 ## Usage

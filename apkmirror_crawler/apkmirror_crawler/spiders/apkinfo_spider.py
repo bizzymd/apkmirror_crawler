@@ -194,16 +194,16 @@ class ApkCategories(scrapy.Spider):
         item['developer'] = ''.join(developer)
 
         # Scrape version number
-        version_boolean = ''.join(details.xpath("./div[1]/div[2]/text()[1]").extract()).strip()
+        version_boolean = ''.join(details.xpath("./div[1]/div/text()[1]").extract()).strip()
 
         if "Version" in version_boolean:
             item['version'] = version_boolean.replace('Version: ', '')
         else:
-            item['version'] = ''.join(details.xpath("./div[1]/div[2]/text()[2]").extract()).replace('Version: ',
+            item['version'] = ''.join(details.xpath("./div[1]/div/text()[2]").extract()).replace('Version: ',
                                                                                                     '').strip()
 
         # Scrape package
-        package_boolean = ''.join(details.xpath("./div[1]/div[2]/span[2]/text()").extract()).strip()
+        package_boolean = ''.join(details.xpath("./div[1]/div/span[2]/text()").extract()).strip()
 
         if "Package" in package_boolean:
             item['package'] = package_boolean.replace('Package: ', '')
@@ -211,10 +211,12 @@ class ApkCategories(scrapy.Spider):
             item['package'] = ''.join(details.xpath("./div[1]/div[2]/span/text()").extract()).replace('Package: ',
                                                                                                       '').strip()
         # Scrape Details
-        item['size'] = ''.join(details.xpath("./div[2]/div[2]/text()").extract()).strip().split("M")[0]
-        item['os'] = ''.join(details.xpath("./div[3]/div[2]/div/text()").extract()).strip()
-        item['dpi'] = ''.join(details.xpath("./div[4]/div[2]//text()").extract())
-        date = ''.join(details.xpath("./div[6]/div[2]//text()").extract()).replace('Uploaded ', '')
+        item['size'] = ''.join(details.xpath("./div[2]/div/text()").extract()).strip().split("M")[0]
+        item['os'] = ''.join(details.xpath("./div[3]/div/div/text()").extract()).strip()
+        item['architecture'] = ''.join(details.xpath("./div[4]/div[1]//text()[1]").extract())
+        item['dpi'] = ''.join(details.xpath("./div[4]/div[1]//text()[2]").extract())
+
+        date = ''.join(details.xpath("./div[7]/div[1]//text()").extract()).replace('Uploaded ', '')
         item['date'] = date.split('at', 1)[0]
 
         # Scrape MD5, SHA1, SHA256 signatures
@@ -229,5 +231,12 @@ class ApkCategories(scrapy.Spider):
         # The direct download link and the link to the application
         item['download_link'] = download_link
         item['app_link'] = response.url
+
+        # APKMirror provides Permissions, Features and Libraries, below we crawl them
+
+        permissions = ' '.join(response.xpath("//div[@id='apkPermissions']/div[@class='modal-dialog']/div/div/text()").extract()).replace("\n", '')
+        item['permissions'] = permissions.split('  ')[0]
+        item['features'] = permissions.split('  ')[1]
+        item['libraries'] = permissions.split('  ')[2]
 
         yield item
